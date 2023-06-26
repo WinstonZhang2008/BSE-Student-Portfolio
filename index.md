@@ -62,9 +62,11 @@ My starter project is a small board with a light. It displays a color depending 
 
 Components
   - Light: The light displays the color
-  - Slider: The slider determines the brightness of each color
+  - Red slider: This slider determines the brightness of the color red
+  - Green slider: This slider determines the brightness of the color green
+  - Blue slider: This slider determines the brightness of the color blue
 
-As you slide the sliders, the light changes colors. The light is depedent on the sliders. The further you slide the slider, the brighter and stronger that sepcific color gets. 
+As you slide the sliders, the light changes colors. The light is depedent on the sliders. The further you slide the slider, the brighter and stronger that sepcific color gets. You can also mix colors, but the mixed color will look more like the slider that is slid the furthest.
 
 # Schematics 
 Here's where you'll put images of your schematics. [Tinkercad](https://www.tinkercad.com/blog/official-guide-to-tinkercad-circuits) and [Fritzing](https://fritzing.org/learning/) are both great resoruces to create professional schematic diagrams, though BSE recommends Tinkercad becuase it can be done easily and for free in the browser. 
