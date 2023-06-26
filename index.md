@@ -60,9 +60,10 @@ For your first milestone, describe what your project is and how you plan to buil
 ## Summary
 My starter project is a small board with a light. It displays a color depending on how you slide each slider. Each slider controls the brightness of a specific color, and in this case it's red, green, and blue. 
 
-###Components
+Components
   - Light: The light displays the color
   - Slider: The slider determines the brightness of each color
+
 As you slide the sliders, the light changes colors. The light is depedent on the sliders. The further you slide the slider, the brighter and stronger that sepcific color gets. 
 
 # Schematics 
