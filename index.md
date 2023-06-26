@@ -68,6 +68,14 @@ Components
 
 As you slide the sliders, the light changes colors. The light is depedent on the sliders. The further you slide the slider, the brighter and stronger that sepcific color gets. You can also mix colors, but the mixed color will look more like the slider that is slid the furthest.
 
+Challenges
+  - Had trouble soldering the sliders onto the board
+  - The light and the sliders were not balanced and kept falling out at first
+
+Next Steps
+
+My next step is to start my intensive project. I will need to make a plan and start familiarizing myself with tools around the workshop while also marking my progress.
+
 # Schematics 
 Here's where you'll put images of your schematics. [Tinkercad](https://www.tinkercad.com/blog/official-guide-to-tinkercad-circuits) and [Fritzing](https://fritzing.org/learning/) are both great resoruces to create professional schematic diagrams, though BSE recommends Tinkercad becuase it can be done easily and for free in the browser. 
 
