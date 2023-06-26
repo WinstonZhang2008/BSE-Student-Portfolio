@@ -62,15 +62,16 @@ My starter project is a small board with a light. It displays a color depending 
 
 Components
   - Light: The light displays the color
-  - Red slider: This slider determines the brightness of the color red
-  - Green slider: This slider determines the brightness of the color green
-  - Blue slider: This slider determines the brightness of the color blue
+  - Switches: The switches are not on and off switches, they can be slid a little bit 
+  - Red switch: This switch determines the brightness of the color red
+  - Green switch: This switch determines the brightness of the color green
+  - Blue switch: This switch determines the brightness of the color blue
 
-As you slide the sliders, the light changes colors. The light is depedent on the sliders. The further you slide the slider, the brighter and stronger that sepcific color gets. You can also mix colors, but the mixed color will look more like the slider that is slid the furthest.
+As you slide the switches, the light changes colors. The light is depedent on the switches. The further you slide the switch, the brighter and stronger that sepcific color gets. You can also mix colors, but the mixed color will look more like the switch that is slid the furthest.
 
 Challenges
-  - Had trouble soldering the sliders onto the board
-  - The light and the sliders were not balanced and kept falling out at first
+  - Had trouble soldering the swithces onto the board
+  - The light and the switches were not balanced and kept falling out at first
 
 Next Steps
 
