@@ -52,6 +52,18 @@ For your first milestone, describe what your project is and how you plan to buil
 - Technical progress you've made so far
 - Challenges you're facing and solving in your future milestones
 - What your plan is to complete your project
+  
+# Starter Project
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/CaCazFBhYKs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Summary
+My starter project is a small board with a light. It displays a color depending on how you slide each slider. Each slider controls the brightness of a specific color, and in this case it's red, green, and blue. 
+
+###Components
+  - Light: The light displays the color
+  - Slider: The slider determines the brightness of each color
+As you slide the sliders, the light changes colors. The light is depedent on the sliders. The further you slide the slider, the brighter and stronger that sepcific color gets. 
 
 # Schematics 
 Here's where you'll put images of your schematics. [Tinkercad](https://www.tinkercad.com/blog/official-guide-to-tinkercad-circuits) and [Fritzing](https://fritzing.org/learning/) are both great resoruces to create professional schematic diagrams, though BSE recommends Tinkercad becuase it can be done easily and for free in the browser. 
