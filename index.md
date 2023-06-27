@@ -64,7 +64,7 @@ My starter project is a RGB LED light. It displays a color depending on how you 
 <img src="PXL_20230627_185806450.jpg" alt="Starter Project">
 
 Components
-  - RBG LED: The LED 
+  - RBG LED: The LED displays the light depending on the RBG values
   - Switches: The switches are not on and off switches, they can be slid
   - Red switch: This switch determines the value of the color red from 0-255
   - Green switch: This switch determines the value of the color green from 0-255
