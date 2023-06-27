@@ -61,6 +61,8 @@ For your first milestone, describe what your project is and how you plan to buil
 ## Summary
 My starter project is a RGB LED light. It displays a color depending on how you slide each of the 3 switches. Each switch controls the one of the RGB values. The further you slide each switch, the higher the value for that specific color gets. For example, if you slide the red switch all the way and none of the other swithces at all, the light will be red because the color is [255,0,0].
 
+<img src="PXL_20230627_185806450.jpg" alt="Starter Project">
+
 Components
   - RBG LED: The LED 
   - Switches: The switches are not on and off switches, they can be slid
