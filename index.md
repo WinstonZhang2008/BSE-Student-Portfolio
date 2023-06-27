@@ -58,14 +58,14 @@ For your first milestone, describe what your project is and how you plan to buil
 <iframe width="560" height="315" src="https://www.youtube.com/embed/CaCazFBhYKs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Summary
-My starter project is a small board with a light. It displays a color depending on how you slide each slider. Each slider controls the brightness of a specific color, and in this case it's red, green, and blue. 
+My starter project is a RGB LED light. It displays a color depending on how you slide each of the 3 switches. Each switch controls the one of the RGB values. The further you slide each switch, the higher the value for that specific color gets. For example, if you slide the red switch all the way and none of the other swithces at all, the light will be red because the color is [255,0,0].
 
 Components
   - Light: The light displays the color
-  - Switches: The switches are not on and off switches, they can be slid a little bit 
-  - Red switch: This switch determines the brightness of the color red
-  - Green switch: This switch determines the brightness of the color green
-  - Blue switch: This switch determines the brightness of the color blue
+  - Switches: The switches are not on and off switches, they can be slid
+  - Red switch: This switch determines the value of the color red
+  - Green switch: This switch determines the value of the color green
+  - Blue switch: This switch determines the value of the color blue
 
 As you slide the switches, the light changes colors. The light is depedent on the switches. The further you slide the switch, the brighter and stronger that sepcific color gets. You can also mix colors, but the mixed color will look more like the switch that is slid the furthest.
 
