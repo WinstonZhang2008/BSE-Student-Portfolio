@@ -55,7 +55,7 @@ My project is a ball tracking robot. What it does is pretty straightfoward, it t
 
 Components
   - Raspberry Pi Computer: This is the brain of the robot/car. It processes code and tells the car what to do. It has a 40 pin pinout, heat sinks, a USBC input, 2 mini HDMIs, 4 USB inputs, and an HDMI input
-  - Battery Pack 1: Powers the Raspberry Pi computer through with a USBC cable.
+  - Battery Pack 1: Powers the Raspberry Pi computer
   - Battery Pack 2: Powers the L298N motor driver
   - Motor Driver: It powers the motors. The L298N can control the speed and direction of the motors through the code written in the Raspberry Pi computer. It is connected to the motors and to the Raspberry Pi Computer
   - DC Motors: DC motors run from converting electrical energy to mechanical energy, which makes it run
