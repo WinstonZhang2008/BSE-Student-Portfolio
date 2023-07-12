@@ -31,7 +31,7 @@ For your final milestone, explain the outcome of your project. Key details to in
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/y3VAmNlER5Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-For my first milestone, I got the robot to move forward, move backwards, move left, move right, and stop. For my second milestone, I have gotten my robot to somewhat track the ball. However, it still needs some work, as it can only move left or right slightyly while tracking the ball. The camera is also working and it is able to track the ball.
+For my first milestone, I got the robot to move forward, move backwards, move left, move right, and stop. For my second milestone, I have gotten my robot to somewhat track the ball. However, it still needs some work, as it can only move left or right slightyly while tracking the ball. The camera is also working and is able to identify the ball and mark it.
 
 Components I have added
   - Camera: It tracks the ball. Once the ball is on the camera, it creates a rectangle around the ball so it is easier to follow, and the code revolves around this.
