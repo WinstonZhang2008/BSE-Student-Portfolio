@@ -86,21 +86,8 @@ My next step is to start my intensive project. I will need to figure out where t
 # Code
 Here's where you'll put your code. The syntax below places it into a block of code. Follow the guide [here]([url](https://www.markdownguide.org/extended-syntax/)) to learn how to customize it to your project needs. 
 
-```c++
-Enable desktop notifications for Gmail.
-   OK  No thanks
+```python
 
-Get additional protection against phishing
-Turn on Enhanced Safe Browsing to get additional protection against dangerous emails
-ContinueNo thanks
-Conversations
-15.06 GB of 100 GB used
-Terms · Privacy · Program Policies
-Last account activity: 1 minute ago
-Open in 1 other location · Details
-# import the necessary packages
-from picamera.array import PiRGBArray     #As there is a resolution problem in raspberry pi, will not be able to capture frames by VideoCapture
-from picamera import PiCamera
 import RPi.GPIO as GPIO
 import time
 import cv2 
