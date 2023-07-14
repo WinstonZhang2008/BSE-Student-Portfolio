@@ -9,7 +9,6 @@ Replace this text with a brief description (2-3 sentences) of your project. This
 | Winston Z | The Quarry Lane School | Computer Science | Incoming Sophomore
 
 <!---
-**Replace the BlueStamp logo below with an image of yourself and your completed project. Follow the guide [here](https://tomcam.github.io/least-github-pages/adding-images-github-pages-site.html) if you need help.**
 
 ![Headstone Image](logo.svg)
   
@@ -83,9 +82,6 @@ Challenges
 Next Steps
 
 My next step is to start my intensive project. I will need to figure out where to mark my first and second milestones, and start familiarizing myself with tools around the workshop.
-
-# Schematics 
-Here's where you'll put images of your schematics. [Tinkercad](https://www.tinkercad.com/blog/official-guide-to-tinkercad-circuits) and [Fritzing](https://fritzing.org/learning/) are both great resoruces to create professional schematic diagrams, though BSE recommends Tinkercad becuase it can be done easily and for free in the browser. 
 
 # Code
 Here's where you'll put your code. The syntax below places it into a block of code. Follow the guide [here]([url](https://www.markdownguide.org/extended-syntax/)) to learn how to customize it to your project needs. 
@@ -265,7 +261,6 @@ def target_hist(frame):
     return hist
 
 #CAMERA CAPTURE
-#initialize the camera and grab a reference to the raw camera capture
 video = cv2.VideoCapture(0)
 video.set(3,320)
 video.set(4,240)
