@@ -1,7 +1,7 @@
 # Ball Tracking Robot
 
 <!---
-Replace this text with a brief description (2-3 sentences) of your project. This description should draw the reader in and make them interested in what you've built. You can include what the biggest challenges, takeaways, and triumphs from completing the project were. As you complete your portfolio, remember your audience is less familiar than you are with all that your project entails!
+My project is a ball tracking robot that uses the Raspberry Pi computer as its computer. It has object identification (ball detecting), built in code, dc motors, and also uses an L298N motor driver. This project was an amazing experience for me and I loved building the physical part of it, as well as the coding part of it. 
 
 
 | **Engineer** | **School** | **Area of Interest** | **Grade** |
@@ -24,7 +24,7 @@ For your final milestone, explain the outcome of your project. Key details to in
 - A summary of key topics you learned about
 - What you hope to learn in the future after everything you've learned at BSE
 
--->
+
 
 # Second Milestone
 
