@@ -11,16 +11,13 @@ My project is a ball tracking robot that uses the Raspberry Pi computer as its c
   
 # Final Milestone
 
-**Don't forget to replace the text below with the embedding for your milestone video. Go to Youtube, click Share -> Embed, and copy and paste the code to replace what's below.**
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/F7M7imOVGug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-For your final milestone, explain the outcome of your project. Key details to include are:
-- What you've accomplished since your previous milestone
-- What your biggest challenges and triumphs were at BSE
-- A summary of key topics you learned about
-- What you hope to learn in the future after everything you've learned at BSE
+In my first 2 milestones, I got the robot to successfully identify the ball and somewhat follow it around. I also got the ultrasonic sensors working. However, the code had lots of bugs and it sometimes turned randomly. Since then, I have fixed the code and now the robot can accurately follow the ball around without turning randomly or stopping. 
 
+Since my second milestone, I have added 2 LEDs that signify if the ball has been successfully tracked or not. The red LED shines if the ball is far away, and the green LED shines if the ball is really close. When the green LED shines, the robot does not move, as it would crash into the ball if it does. 
+The robot tracks the ball by finding the center of the ball. It does this by drawing a rectangle around the ball, and then finding the center of the rectangle. If the center of the rectangle/ball is to the left of the camera, then the robot turns left. If it is to the right of the camrea, then it turns right. If it is in the middle, then it moves forward. Once it gets to a certain distance away from the ball(really close), then it stops and the green LED shines. If the ball is not within the camera range, then the robot turns in a circle until it finds the ball. A challenge I faced was that I couldn't get the if statement conditionals right. The robot would turn left even if the ball was right in front of it, and turn left when the ball is to the right. I had to adjust my if statements to check different values of the center of the ball to make it track accurately.
 
 
 # Second Milestone
@@ -30,7 +27,7 @@ For your final milestone, explain the outcome of your project. Key details to in
 For my first milestone, I got the robot to move forward, move backwards, move left, move right, and stop. Since then, I have gotten my robot to somewhat track the ball. However, it still needs some work, as it can only turn left and right while tracking the ball. It can't go forwards or backwards. The camera is also working and is able to identify the ball and mark it.
 
 Components I have added
-  - Camera: It tracks the ball. Once the ball is on the camera, it creates a rectangle around the ball so it is easier to follow, and the code revolves around this.
+  - Camera: It tracks the ball. Once the ball is on the camera, it creates a rectangle around the ball so it is easier to track
   - Ultrasonic sensors: I haven't gotten it to work, but I have attached them. They tell the distance that the object is from the sensor. The sensor releases an ultrasonic wave that bounces off the object and back, and we can calculate the distance by using the amount of time the wave takes to come back. My ultrasonic sensors are able to tell the distance, but they are not very accurate right now.
   - Breadboard: The breadboard is a good way to create my circuits on, and it helped me link my ultrasonic sensors to the Raspberry Pi computer using resistors and wires. Breadboards are a great way to create circuits and test them withouth having to solder.
 
