@@ -14,6 +14,7 @@ My project is a ball tracking robot that uses the Raspberry Pi computer as its c
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/F7M7imOVGug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+
 In my first 2 milestones, I got the robot to successfully identify the ball and somewhat follow it around. I also got the ultrasonic sensors working. However, the code had lots of bugs and it sometimes turned randomly. Since then, I have fixed the code and now the robot can accurately follow the ball around without turning randomly or stopping. 
 
 Since my second milestone, I have added 2 LEDs that signify if the ball has been successfully tracked or not. The red LED shines if the ball is far away, and the green LED shines if the ball is really close. When the green LED shines, the robot does not move, as it would crash into the ball if it does. 
