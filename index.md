@@ -91,16 +91,272 @@ Here's where you'll put images of your schematics. [Tinkercad](https://www.tinke
 Here's where you'll put your code. The syntax below places it into a block of code. Follow the guide [here]([url](https://www.markdownguide.org/extended-syntax/)) to learn how to customize it to your project needs. 
 
 ```c++
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  Serial.println("Hello World!");
-}
+Enable desktop notifications for Gmail.
+   OK  No thanks
 
-void loop() {
-  // put your main code here, to run repeatedly:
+Get additional protection against phishing
+Turn on Enhanced Safe Browsing to get additional protection against dangerous emails
+ContinueNo thanks
+Conversations
+15.06 GB of 100 GB used
+Terms · Privacy · Program Policies
+Last account activity: 1 minute ago
+Open in 1 other location · Details
+# import the necessary packages
+from picamera.array import PiRGBArray     #As there is a resolution problem in raspberry pi, will not be able to capture frames by VideoCapture
+from picamera import PiCamera
+import RPi.GPIO as GPIO
+import time
+import cv2 
+import numpy as np
 
-}
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO_TRIGGER1 = 23      #Left ultrasonic sensor
+GPIO_ECHO1 = 24
+
+GPIO_TRIGGER2 = 25      #Front ultrasonic sensor
+GPIO_ECHO2 = 8
+
+GPIO_TRIGGER3 = 16      #Right ultrasonic sensor
+GPIO_ECHO3 = 20
+
+ledGREEN = 6	#green lED 
+ledRED = 19		# red LED 
+
+MOTOR1B=2  #Left Motor
+MOTOR1E=3
+
+MOTOR2B=14  #Right Motor
+MOTOR2E=15
+
+#setting up the red and green LEDs
+GPIO.setup(ledRED, GPIO.OUT)
+GPIO.setup(ledGREEN,GPIO.OUT)
+
+#red LED shines by default
+GPIO.output(ledRED,GPIO.HIGH)
+GPIO.output(ledGREEN,GPIO.LOW)
+
+# Set pins as output and input
+GPIO.setup(GPIO_TRIGGER1,GPIO.OUT)  # Trigger
+GPIO.setup(GPIO_ECHO1,GPIO.IN)      # Echo
+GPIO.setup(GPIO_TRIGGER2,GPIO.OUT)  # Trigger
+GPIO.setup(GPIO_ECHO2,GPIO.IN)
+GPIO.setup(GPIO_TRIGGER3,GPIO.OUT)  # Trigger
+GPIO.setup(GPIO_ECHO3,GPIO.IN)
+
+# Set trigger to False (Low)
+GPIO.output(GPIO_TRIGGER1, False)
+GPIO.output(GPIO_TRIGGER2, False)
+GPIO.output(GPIO_TRIGGER3, False)
+
+def sonar(GPIO_TRIGGER,GPIO_ECHO):
+    #Calculates distance
+      start=0
+      stop=0
+      # Set pins as output and input
+      #GPIO.setup(GPIO_TRIGGER,GPIO.OUT)  # Trigger
+      #qGPIO.setup(GPIO_ECHO,GPIO.IN)      # Echo
+     
+      # Set trigger to False (Low)
+      GPIO.output(GPIO_TRIGGER, False)
+     
+      # Allow module to settle
+      time.sleep(0.001)
+           
+      #while distance > 5:
+      #Send 10us pulse to trigger
+      GPIO.output(GPIO_TRIGGER, True)
+      time.sleep(0.00001)
+      GPIO.output(GPIO_TRIGGER, False)
+      begin = time.time()
+      while GPIO.input(GPIO_ECHO)==0 and time.time()<begin+0.05:
+            start = time.time()
+     
+      while GPIO.input(GPIO_ECHO)==1 and time.time()<begin+0.1:
+            stop = time.time()
+     
+      # Calculate pulse length
+      elapsed = stop-start
+      # Distance pulse travelled in that time is time
+      # multiplied by the speed of sound (cm/s)
+      distance = elapsed * 343000
+     
+      # That was the distance there and back so half the value
+      distance = distance / 2
+     
+      print( "Distance : %.1f" % distance)
+      return distance
+
+GPIO.setup(MOTOR1B, GPIO.OUT)
+GPIO.setup(MOTOR1E, GPIO.OUT)
+
+GPIO.setup(MOTOR2B, GPIO.OUT)
+GPIO.setup(MOTOR2E, GPIO.OUT)
+
+#Defining functions for the motors to move
+def forward():
+      GPIO.output(MOTOR1B, GPIO.HIGH)
+      GPIO.output(MOTOR1E, GPIO.LOW)
+      GPIO.output(MOTOR2B, GPIO.HIGH)
+      GPIO.output(MOTOR2E, GPIO.LOW)
+     
+def reverse():
+      GPIO.output(MOTOR1B, GPIO.LOW)
+      GPIO.output(MOTOR1E, GPIO.HIGH)
+      GPIO.output(MOTOR2B, GPIO.LOW)
+      GPIO.output(MOTOR2E, GPIO.HIGH)
+     
+def rightturn():
+      GPIO.output(MOTOR1B,GPIO.LOW)
+      GPIO.output(MOTOR1E,GPIO.HIGH)
+      GPIO.output(MOTOR2B,GPIO.HIGH)
+      GPIO.output(MOTOR2E,GPIO.LOW)
+     
+def leftturn():
+      GPIO.output(MOTOR1B,GPIO.HIGH)
+      GPIO.output(MOTOR1E,GPIO.LOW)
+      GPIO.output(MOTOR2B,GPIO.LOW)
+      GPIO.output(MOTOR2E,GPIO.HIGH)
+
+def stop():
+      GPIO.output(MOTOR1E,GPIO.LOW)
+      GPIO.output(MOTOR1B,GPIO.LOW)
+      GPIO.output(MOTOR2E,GPIO.LOW)
+      GPIO.output(MOTOR2B,GPIO.LOW)
+     
+def segment_colour(frame):    #returns only the red colors in the frame
+    hsv_roi =  cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    mask_1 = cv2.inRange(hsv_roi, np.array([160, 160,10]), np.array([190,255,255]))
+    ycr_roi=cv2.cvtColor(frame,cv2.COLOR_BGR2YCrCb)
+    mask_2=cv2.inRange(ycr_roi, np.array((0.,165.,0.)), np.array((255.,255.,255.)))
+
+    mask = mask_1 | mask_2
+    kern_dilate = np.ones((8,8),np.uint8)
+    kern_erode  = np.ones((3,3),np.uint8)
+    mask= cv2.erode(mask,kern_erode)      #Eroding
+    mask=cv2.dilate(mask,kern_dilate)     #Dilating
+    return mask
+
+def find_blob(blob): #Finds the center of the circle to track it better
+    largest_contour=0
+    cont_index=0
+    contours, hierarchy = cv2.findContours(blob, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
+    for idx, contour in enumerate(contours):
+        area=cv2.contourArea(contour)
+        if (area >largest_contour) :
+            largest_contour=area
+           
+            cont_index=idx
+            #if res>15 and res<18:
+            #    cont_index=idx
+                              
+    r=(0,0,2,2)
+    if len(contours) > 0:
+        r = cv2.boundingRect(contours[cont_index])
+       
+    return r,largest_contour
+
+def target_hist(frame): 
+    hsv_img=cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+   
+    hist=cv2.calcHist([hsv_img],[0],None,[50],[0,255])
+    return hist
+
+#CAMERA CAPTURE
+#initialize the camera and grab a reference to the raw camera capture
+video = cv2.VideoCapture(0)
+video.set(3,320)
+video.set(4,240)
+ball_captured = False
+
+flag = 0
+while True:
+    ret, frame = video.read()
+
+    
+    
+    global centre_x
+    global centre_y
+    centre_x=0.
+    centre_y=0.
+    hsv1 = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    mask_red=segment_colour(frame)      #masking red the frame
+    loct,area=find_blob(mask_red)
+    #print("Area: " ,area)
+    x,y,w,h=loct
+    #distance coming from front ultrasonic sensor
+    distanceC = sonar(GPIO_TRIGGER2,GPIO_ECHO2)
+      #distance coming from right ultrasonic sensor
+    distanceR = sonar(GPIO_TRIGGER3,GPIO_ECHO3)
+    #distance coming from left ultrasonic sensor
+    distanceL = sonar(GPIO_TRIGGER1,GPIO_ECHO1)
+
+    if (w*h) < 10:
+        #If the width and height is really small, that means it can't find the ball
+        found=0
+    else:
+        #This means it has found the ball
+        found=1
+        #Creates the rectangle so we can get the center x value and center y value
+        #This helps us track it better
+        simg2 = cv2.rectangle(frame, (x,y), (x+w,y+h), 255,2)
+        centre_x=x+((w)/2)
+        centre_y=y+((h)/2)
+        cv2.circle(frame,(int(centre_x),int(centre_y)),3,(0,110,255),-1)
+        centre_x-=80
+        centre_y=6--centre_y
+        
+    if area > 11000:
+        #If the ball is really close, then we can set the variable to true
+        ball_captured = True
+    if found == 0:
+        #Doesn't see the ball, is turning in circles to find it
+        leftturn()
+        time.sleep(0.03)
+        stop()
+    if(found==1):
+        #Happens when the ball is found
+        if ball_captured:
+            #If the robot is really cose to the ball, the green LED shines and the robot doesn't move
+            #The robot doesn't move so it doesn't crash into the ball
+            GPIO.output(ledGREEN,GPIO.HIGH)
+            GPIO.output(ledRED,GPIO.LOW)
+            #Sets ball captured back to false so it doesn't stay stationary forever
+            ball_captured = False
+        else:
+            #The robot has not successfully reached the ball yet, so it runs this
+            ball_captured = False
+            if area > 200:
+                #Checks if the ball is too close. It doesn't want to crash
+                if centre_x < 50:
+                    #if the center of the ball is on the left of the camera, then it turns left
+                    print("left")
+                    leftturn()
+                    time.sleep(0.02)
+                elif centre_x > 140:
+                    #if the center of the ball is on the right of the camera, then it turns right
+                    print("right")
+                    rightturn()
+                    time.sleep(0.02)
+                elif (area<11000):
+                    #if it is somewhat in the middle and the ball isn't too far away, then it moves forward
+                    print("forward")
+                    forward()
+                    time.sleep(0.1)
+                
+                #Red LED shines by default
+                GPIO.output(ledRED,GPIO.HIGH)
+                GPIO.output(ledGREEN,GPIO.LOW)
+                stop()  
+                
+    if frame is not None:
+        cv2.imshow("frame",frame)
+    if cv2.waitKey(1) == ord('q'):
+        break
+video.release()
+cv2.destroyAllWindows()  
 ```
 
 # Bill of Materials
@@ -113,10 +369,3 @@ Don't forget to place the link of where to buy each component inside the quotati
 | Item Name | What the item is used for | $Price | <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> |
 | Item Name | What the item is used for | $Price | <a href="https://www.amazon.com/Arduino-A000066-ARDUINO-UNO-R3/dp/B008GRTSV6/"> Link </a> |
 
-# Other Resources/Examples
-One of the best parts about Github is that you can view how other people set up their own work. Here are some past BSE portfolios that are awesome examples. You can view how they set up their portfolio, and you can view their index.md files to understand how they implemented different portfolio components.
-- [Example 1](https://trashytuber.github.io/YimingJiaBlueStamp/)
-- [Example 2](https://sviatil0.github.io/Sviatoslav_BSE/)
-- [Example 3](https://arneshkumar.github.io/arneshbluestamp/)
-
-To watch the BSE tutorial on how to create a portfolio, click here.
