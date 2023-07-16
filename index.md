@@ -8,6 +8,7 @@ My project is a ball tracking robot that uses the Raspberry Pi computer as its c
 | Winston Z | The Quarry Lane School | Computer Science | Incoming Sophomore
 
 ![Headstone Image](Winston-Project.png)
+<img src="Winston-Project.png" alt="drawing" width="200"/>
   
 # Final Milestone
 
