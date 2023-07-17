@@ -7,12 +7,12 @@ My project is a ball tracking robot that uses the Raspberry Pi computer as its c
 |:--:|:--:|:--:|:--:|
 | Winston Z | The Quarry Lane School | Computer Science | Incoming Sophomore
 
-<img src="Winston-Project.png" alt="drawing" width="300"/>
-  
+
+|![First Image](Winston-Project.png)|![Second Image](Winston-Headshot.png)|
 # Final Milestone
 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/F7M7imOVGug" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/J9R5ZfRnESo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 
 In my first 2 milestones, I got the robot to successfully identify the ball and somewhat follow it around. I also got the ultrasonic sensors working. However, the code had lots of bugs and it sometimes turned randomly. Since then, I have fixed the code and now the robot can accurately follow the ball around without turning randomly or stopping. 
