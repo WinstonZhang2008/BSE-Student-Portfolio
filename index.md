@@ -84,7 +84,7 @@ My next step is to start my intensive project. I will need to figure out where t
 
 import RPi.GPIO as GPIO
 import time
-import cv2 
+import cv2
 import numpy as np
 
 GPIO.setmode(GPIO.BCM)
@@ -98,8 +98,8 @@ GPIO_ECHO2 = 8
 GPIO_TRIGGER3 = 16      #Right ultrasonic sensor
 GPIO_ECHO3 = 20
 
-ledGREEN = 6	#green lED 
-ledRED = 19		# red LED 
+ledGREEN = 6 #green lED
+ledRED = 19 # red LED
 
 MOTOR1B=2  #Left Motor
 MOTOR1E=3
@@ -160,10 +160,11 @@ def sonar(GPIO_TRIGGER,GPIO_ECHO):
       # multiplied by the speed of sound (cm/s)
       distance = elapsed * 343000
      
-      # That was the distance there and back so half the value
+      # That was the distance there and back so halve the value
       distance = distance / 2
      
-      print( "Distance : %.1f" % distance)
+      #print( "Distance : " , distance)
+      # Reset GPIO settings
       return distance
 
 GPIO.setup(MOTOR1B, GPIO.OUT)
@@ -228,20 +229,21 @@ def find_blob(blob): #Finds the center of the circle to track it better
             cont_index=idx
             #if res>15 and res<18:
             #    cont_index=idx
-                              
+                             
     r=(0,0,2,2)
     if len(contours) > 0:
         r = cv2.boundingRect(contours[cont_index])
        
     return r,largest_contour
 
-def target_hist(frame): 
+def target_hist(frame):
     hsv_img=cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
    
     hist=cv2.calcHist([hsv_img],[0],None,[50],[0,255])
     return hist
 
 #CAMERA CAPTURE
+#initialize the camera and grab a reference to the raw camera capture
 video = cv2.VideoCapture(0)
 video.set(3,320)
 video.set(4,240)
@@ -251,8 +253,8 @@ flag = 0
 while True:
     ret, frame = video.read()
 
-    
-    
+   
+   
     global centre_x
     global centre_y
     centre_x=0.
@@ -268,7 +270,7 @@ while True:
     distanceR = sonar(GPIO_TRIGGER3,GPIO_ECHO3)
     #distance coming from left ultrasonic sensor
     distanceL = sonar(GPIO_TRIGGER1,GPIO_ECHO1)
-
+   
     if (w*h) < 10:
         #If the width and height is really small, that means it can't find the ball
         found=0
@@ -283,20 +285,31 @@ while True:
         cv2.circle(frame,(int(centre_x),int(centre_y)),3,(0,110,255),-1)
         centre_x-=80
         centre_y=6--centre_y
-        
-    if area > 11000:
+       
+    if area > 15250:
         #If the ball is really close, then we can set the variable to true
         ball_captured = True
-    if found == 0:
-        #Doesn't see the ball, is turning in circles to find it
-        leftturn()
-        time.sleep(0.03)
         stop()
+    if found == 0:
+        #Runs when it doesn't see the ball
+        GPIO.output(ledGREEN,GPIO.LOW)
+        GPIO.output(ledRED,GPIO.HIGH)
+        #Checks if there is a wall or any obstacle
+        if distanceC < 200:
+            reverse()
+            time.sleep(0.03)
+            stop()
+           
+        else:
+            #Turning in circles to find the ball
+            leftturn()
+            time.sleep(0.03)
+            stop()
     if(found==1):
         #Happens when the ball is found
         if ball_captured:
             #If the robot is really cose to the ball, the green LED shines and the robot doesn't move
-            #The robot doesn't move so it doesn't crash into the ball
+            #The robot stops so it doesn't crash into the ball
             GPIO.output(ledGREEN,GPIO.HIGH)
             GPIO.output(ledRED,GPIO.LOW)
             #Sets ball captured back to false so it doesn't stay stationary forever
@@ -306,33 +319,32 @@ while True:
             ball_captured = False
             if area > 200:
                 #Checks if the ball is too close. It doesn't want to crash
-                if centre_x < 50:
+                if centre_x < 10:
                     #if the center of the ball is on the left of the camera, then it turns left
                     print("left")
                     leftturn()
-                    time.sleep(0.02)
-                elif centre_x > 140:
+                    time.sleep(0.04)
+                    stop()
+                elif centre_x > 170:
                     #if the center of the ball is on the right of the camera, then it turns right
                     print("right")
                     rightturn()
-                    time.sleep(0.02)
-                elif (area<11000):
+                    time.sleep(0.04)
+                    stop()
+                elif (area<15250):
                     #if it is somewhat in the middle and the ball isn't too far away, then it moves forward
                     print("forward")
                     forward()
-                    time.sleep(0.1)
-                
+               
                 #Red LED shines by default
                 GPIO.output(ledRED,GPIO.HIGH)
                 GPIO.output(ledGREEN,GPIO.LOW)
-                stop()  
-                
     if frame is not None:
         cv2.imshow("frame",frame)
     if cv2.waitKey(1) == ord('q'):
         break
 video.release()
-cv2.destroyAllWindows()  
+cv2.destroyAllWindows()   
 ```
 
 # Bill of Materials
