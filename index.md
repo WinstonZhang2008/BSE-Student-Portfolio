@@ -339,7 +339,7 @@ cv2.destroyAllWindows()
 
 | **Part** | **Note** | **Price** | **Link** |
 |:--:|:--:|:--:|:--:|
-| HC-SR04 Ultrasonic Sensor x3 | Getting the distance between object and the robot | $7.99 | <a href="https://www.amazon.com/BAEASU-Ultrasonic-Mega2560-Duemilanove-Mounting/dp/B0C616H9TS/ref=sr_1_4?crid=2IZ5D2A8Z2ONN&keywords=3+ultrasonic+sensors&qid=1689616349&sprefix=3+ultrasonic+sensos%2Caps%2C825&sr=8-4"> Link </a> |
+| HC-SR04 Ultrasonic Sensor | Getting the distance between object and the robot | $7.99 | <a href="https://www.amazon.com/BAEASU-Ultrasonic-Mega2560-Duemilanove-Mounting/dp/B0C616H9TS/ref=sr_1_4?crid=2IZ5D2A8Z2ONN&keywords=3+ultrasonic+sensors&qid=1689616349&sprefix=3+ultrasonic+sensos%2Caps%2C825&sr=8-4"> Link </a> |
 | L298N Dual H Bridge Motor Driver | Controls the motors | $11.49(2.87 for 1) | <a href="https://www.amazon.com/HiLetgo-Controller-Stepper-H-Bridge-Mega2560/dp/B07BK1QL5T/"> Link </a> |
 | Raspberry Pi Kit | Processes code, is the brain of the robot | $104.95 | <a href="https://www.pishop.us/product/raspberry-pi-4b-starter-kit-pro/"> Link </a> |
 | Portable Charger Battery Pack  | Powers the Raspberry Pi computer | $26.99 | <a href="https://www.amazon.com/UGREEN-10000mAh-Portable-Charger-Battery/dp/B086Y8P3MT?tag=namespacebran380-20"> Link </a> |
