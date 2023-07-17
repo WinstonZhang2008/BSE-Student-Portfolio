@@ -1,6 +1,6 @@
 # Ball Tracking Robot
 
-My project is a ball tracking robot that uses the Raspberry Pi computer as its computer. It has object identification (ball detecting), built in code, dc motors, and also uses an L298N motor driver. This project was an amazing experience for me and I loved building the physical part of it, as well as the coding part of it. 
+My project is a ball tracking robot that uses the Raspberry Pi to run. It has object identification (ball detecting), built in code, dc motors, and also uses an L298N motor driver to power the motors. This project was an amazing experience for me and I loved building the physical part of it, as well as the coding part of it. 
 
 
 | **Engineer** | **School** | **Area of Interest** | **Grade** |
