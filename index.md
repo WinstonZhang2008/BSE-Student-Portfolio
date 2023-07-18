@@ -82,6 +82,11 @@ My next step is to start my intensive project. I will need to figure out where t
 
 ```python
 
+
+Winston Zhang <winstonzhang21@gmail.com>
+10:04 AM (0 minutes ago)
+to me
+
 import RPi.GPIO as GPIO
 import time
 import cv2
@@ -89,14 +94,14 @@ import numpy as np
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-GPIO_TRIGGER1 = 23      #Left ultrasonic sensor
-GPIO_ECHO1 = 24
+GPIO_TRIGGER1 = 16      #Left ultrasonic sensor
+GPIO_ECHO1 = 20
 
 GPIO_TRIGGER2 = 25      #Front ultrasonic sensor
 GPIO_ECHO2 = 8
 
-GPIO_TRIGGER3 = 16      #Right ultrasonic sensor
-GPIO_ECHO3 = 20
+GPIO_TRIGGER3 = 23      #Right ultrasonic sensor
+GPIO_ECHO3 = 24
 
 ledGREEN = 6 #green lED
 ledRED = 19 # red LED
@@ -158,12 +163,11 @@ def sonar(GPIO_TRIGGER,GPIO_ECHO):
       elapsed = stop-start
       # Distance pulse travelled in that time is time
       # multiplied by the speed of sound (cm/s)
-      distance = elapsed * 343000
+      distance = elapsed * 34300
      
       # That was the distance there and back so halve the value
       distance = distance / 2
      
-      #print( "Distance : " , distance)
       # Reset GPIO settings
       return distance
 
@@ -266,10 +270,13 @@ while True:
     x,y,w,h=loct
     #distance coming from front ultrasonic sensor
     distanceC = sonar(GPIO_TRIGGER2,GPIO_ECHO2)
+    print("From center sensor: " + str(distanceC))
       #distance coming from right ultrasonic sensor
     distanceR = sonar(GPIO_TRIGGER3,GPIO_ECHO3)
+    print("From right sensor: " + str(distanceR))
     #distance coming from left ultrasonic sensor
     distanceL = sonar(GPIO_TRIGGER1,GPIO_ECHO1)
+    print("From left sensor: " + str(distanceL))
    
     if (w*h) < 10:
         #If the width and height is really small, that means it can't find the ball
@@ -286,16 +293,12 @@ while True:
         centre_x-=80
         centre_y=6--centre_y
        
-    if area > 15250:
-        #If the ball is really close, then we can set the variable to true
-        ball_captured = True
-        stop()
     if found == 0:
         #Runs when it doesn't see the ball
         GPIO.output(ledGREEN,GPIO.LOW)
         GPIO.output(ledRED,GPIO.HIGH)
-        #Checks if there is a wall or any obstacle
-        if distanceC < 200:
+        #Checks if there is a wall or any obstacle. if wall is less than 12 cm away, it reverses to avoid crashing
+        if distanceC < 12:
             reverse()
             time.sleep(0.03)
             stop()
@@ -306,8 +309,12 @@ while True:
             time.sleep(0.03)
             stop()
     if(found==1):
+        if  distanceC<=8:
+            #If the ball is really close(less than 8 cm), then we can set the variable to true
+            ball_captured = True
         #Happens when the ball is found
         if ball_captured:
+            stop()
             #If the robot is really cose to the ball, the green LED shines and the robot doesn't move
             #The robot stops so it doesn't crash into the ball
             GPIO.output(ledGREEN,GPIO.HIGH)
@@ -332,7 +339,7 @@ while True:
                     time.sleep(0.04)
                     stop()
                 elif (area<15250):
-                    #if it is somewhat in the middle and the ball isn't too far away, then it moves forward
+                    #if it is somewhat in the middle and the ball isn't too close, then it moves forward
                     print("forward")
                     forward()
                
@@ -344,7 +351,8 @@ while True:
     if cv2.waitKey(1) == ord('q'):
         break
 video.release()
-cv2.destroyAllWindows()   
+cv2.destroyAllWindows()        
+
 ```
 
 # Bill of Materials
