@@ -83,10 +83,6 @@ My next step is to start my intensive project. I will need to figure out where t
 ```python
 
 
-Winston Zhang <winstonzhang21@gmail.com>
-10:04 AM (0 minutes ago)
-to me
-
 import RPi.GPIO as GPIO
 import time
 import cv2
