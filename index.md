@@ -14,6 +14,7 @@ My project is a ball tracking robot that uses Raspberry Pi to run. It has object
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/J9R5ZfRnESo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+![First Image](FrontofRobot.jpg)![Second Image](BackofRobot.jpg)![Third Image](TopofRobot.jpg)![Fourth Image](BottomofRobot.jpg)
 
 In my first 2 milestones, I got the robot to successfully identify the ball and somewhat follow it around. I also got the ultrasonic sensors working. However, the code had lots of bugs and it sometimes turned randomly. Since then, I have fixed the code and now the robot can accurately follow the ball around without turning randomly or stopping. 
 
@@ -49,7 +50,6 @@ Components
   - Motor Driver: It powers the motors. The L298N can control the speed and direction of the motors through the code written in the Raspberry Pi computer. It is connected to the motors and to the Raspberry Pi Computer
   - DC Motors: DC motors run from converting electrical energy to mechanical energy, which makes it run
 
-![First Image](FrontofRobot.jpg)![Second Image](BackofRobot.jpg)![Third Image](TopofRobot.jpg)![Fourth Image](BottomofRobot.jpg)
 So far, I have almost completed the physical part of the project and got started on the coding part. For the physical part, I attached everything except the ultrasonic sensors. For the coding part, I have made 5 functions. Stop, move foward, move backwards, move left, and move right. I struggled with booting up the Raspberry Pi computer at first, but after a couple days I started to understand the project better. The wires kept on falling out of the motor driver too, and that was because I did not screw the screw in all the way. My SD Card also got corrupted while I was writing my code, so I had to restart on the coding part. My next step/milestone is to attach the ultrasonic sensors and get them working, and also test out the camera and get started on the code.
 
 
