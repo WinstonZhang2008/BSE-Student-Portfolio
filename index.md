@@ -88,76 +88,61 @@ My next step is to start my intensive project. I will need to figure out where t
 
 # Code
 
-<table>
-<tr>
-<th>Setup</th>
-<th>Sonar</th>
-<th>Movement</th>
-<th>Detection</th>
-<th>BallTracking</th>
-</tr>
-<tr>
-<td>
-<pre style="background:f7f7f7;border:none";height:40pc>
+```python
+
 import RPi.GPIO as GPIO
 import time
 import cv2
 import numpy as np
-  
-  GPIO.setmode(GPIO.BCM)
-  GPIO.setwarnings(False)
-  GPIO_TRIGGER1 = 16      #Left ultrasonic sensor
-  GPIO_ECHO1 = 20
-  
-  GPIO_TRIGGER2 = 25      #Front ultrasonic sensor
-  GPIO_ECHO2 = 8
-  
-  GPIO_TRIGGER3 = 23      #Right ultrasonic sensor
-  GPIO_ECHO3 = 24
-  
-  ledGREEN = 6 #green lED
-  ledRED = 19 # red LED
-  
-  MOTOR1B=2  #Left Motor
-  MOTOR1E=3
-  
-  MOTOR2B=14  #Right Motor
-  MOTOR2E=15
-  
-  #setting up the red and green LEDs
-  GPIO.setup(ledRED, GPIO.OUT)
-  GPIO.setup(ledGREEN,GPIO.OUT)
-  
-  #red LED shines by default
-  GPIO.output(ledRED,GPIO.HIGH)
-  GPIO.output(ledGREEN,GPIO.LOW)
-  
-  #Set pins as output and input
-  GPIO.setup(GPIO_TRIGGER1,GPIO.OUT)  # Trigger
-  GPIO.setup(GPIO_ECHO1,GPIO.IN)      # Echo
-  GPIO.setup(GPIO_TRIGGER2,GPIO.OUT)  # Trigger
-  GPIO.setup(GPIO_ECHO2,GPIO.IN)
-  GPIO.setup(GPIO_TRIGGER3,GPIO.OUT)  # Trigger
-  GPIO.setup(GPIO_ECHO3,GPIO.IN)
-</pre>
-</td>
 
-<td>
-<pre style="background:f7f7f7;border:none">
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+GPIO_TRIGGER1 = 16      #Left ultrasonic sensor
+GPIO_ECHO1 = 20
 
-#Set trigger to False (Low)
+GPIO_TRIGGER2 = 25      #Front ultrasonic sensor
+GPIO_ECHO2 = 8
+
+GPIO_TRIGGER3 = 23      #Right ultrasonic sensor
+GPIO_ECHO3 = 24
+
+ledGREEN = 6 #green lED
+ledRED = 19 # red LED
+
+MOTOR1B=2  #Left Motor
+MOTOR1E=3
+
+MOTOR2B=14  #Right Motor
+MOTOR2E=15
+
+#setting up the red and green LEDs
+GPIO.setup(ledRED, GPIO.OUT)
+GPIO.setup(ledGREEN,GPIO.OUT)
+
+#red LED shines by default
+GPIO.output(ledRED,GPIO.HIGH)
+GPIO.output(ledGREEN,GPIO.LOW)
+
+# Set pins as output and input
+GPIO.setup(GPIO_TRIGGER1,GPIO.OUT)  # Trigger
+GPIO.setup(GPIO_ECHO1,GPIO.IN)      # Echo
+GPIO.setup(GPIO_TRIGGER2,GPIO.OUT)  # Trigger
+GPIO.setup(GPIO_ECHO2,GPIO.IN)
+GPIO.setup(GPIO_TRIGGER3,GPIO.OUT)  # Trigger
+GPIO.setup(GPIO_ECHO3,GPIO.IN)
+
+# Set trigger to False (Low)
 GPIO.output(GPIO_TRIGGER1, False)
 GPIO.output(GPIO_TRIGGER2, False)
 GPIO.output(GPIO_TRIGGER3, False)
 
 def sonar(GPIO_TRIGGER,GPIO_ECHO):
-
-      #Calculates distance
+    #Calculates distance
       start=0
       stop=0
       # Set pins as output and input
       #GPIO.setup(GPIO_TRIGGER,GPIO.OUT)  # Trigger
-      #GPIO.setup(GPIO_ECHO,GPIO.IN)      # Echo
+      #qGPIO.setup(GPIO_ECHO,GPIO.IN)      # Echo
      
       # Set trigger to False (Low)
       GPIO.output(GPIO_TRIGGER, False)
@@ -188,12 +173,7 @@ def sonar(GPIO_TRIGGER,GPIO_ECHO):
      
       # Reset GPIO settings
       return distance
-</pre>
-</td>
 
-<td>
-<pre style="background:f7f7f7;border:none">
-  
 GPIO.setup(MOTOR1B, GPIO.OUT)
 GPIO.setup(MOTOR1E, GPIO.OUT)
 
@@ -202,47 +182,36 @@ GPIO.setup(MOTOR2E, GPIO.OUT)
 
 #Defining functions for the motors to move
 def forward():
-
       GPIO.output(MOTOR1B, GPIO.HIGH)
       GPIO.output(MOTOR1E, GPIO.LOW)
       GPIO.output(MOTOR2B, GPIO.HIGH)
       GPIO.output(MOTOR2E, GPIO.LOW)
      
 def reverse():
-
       GPIO.output(MOTOR1B, GPIO.LOW)
       GPIO.output(MOTOR1E, GPIO.HIGH)
       GPIO.output(MOTOR2B, GPIO.LOW)
       GPIO.output(MOTOR2E, GPIO.HIGH)
      
 def rightturn():
-
       GPIO.output(MOTOR1B,GPIO.LOW)
       GPIO.output(MOTOR1E,GPIO.HIGH)
       GPIO.output(MOTOR2B,GPIO.HIGH)
       GPIO.output(MOTOR2E,GPIO.LOW)
      
 def leftturn():
-
       GPIO.output(MOTOR1B,GPIO.HIGH)
       GPIO.output(MOTOR1E,GPIO.LOW)
       GPIO.output(MOTOR2B,GPIO.LOW)
       GPIO.output(MOTOR2E,GPIO.HIGH)
 
 def stop():
-
       GPIO.output(MOTOR1E,GPIO.LOW)
       GPIO.output(MOTOR1B,GPIO.LOW)
       GPIO.output(MOTOR2E,GPIO.LOW)
       GPIO.output(MOTOR2B,GPIO.LOW)
-
-</pre>
-</td>
-
-<td>
-<pre style="background:f7f7f7;border:none">
+     
 def segment_colour(frame):    #returns only the red colors in the frame
-  
     hsv_roi =  cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     mask_1 = cv2.inRange(hsv_roi, np.array([160, 160,10]), np.array([190,255,255]))
     ycr_roi=cv2.cvtColor(frame,cv2.COLOR_BGR2YCrCb)
@@ -256,7 +225,6 @@ def segment_colour(frame):    #returns only the red colors in the frame
     return mask
 
 def find_blob(blob): #Finds the center of the circle to track it better
-
     largest_contour=0
     cont_index=0
     contours, hierarchy = cv2.findContours(blob, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
@@ -276,16 +244,12 @@ def find_blob(blob): #Finds the center of the circle to track it better
     return r,largest_contour
 
 def target_hist(frame):
-
     hsv_img=cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
    
     hist=cv2.calcHist([hsv_img],[0],None,[50],[0,255])
     return hist
-</pre>
-</td>
 
-<td>
-<pre style="background:f7f7f7;border:none">
+#CAMERA CAPTURE
 #initialize the camera and grab a reference to the raw camera capture
 video = cv2.VideoCapture(0)
 video.set(3,320)
@@ -294,7 +258,6 @@ ball_captured = False
 
 flag = 0
 while True:
-
     ret, frame = video.read()
 
    
@@ -388,14 +351,8 @@ while True:
     if cv2.waitKey(1) == ord('q'):
         break
 video.release()
-cv2.destroyAllWindows()        
-
-</pre>
-</td>
-
-</tr>
-</table>
-
+cv2.destroyAllWindows()
+```
 
 
 
