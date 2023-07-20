@@ -82,6 +82,10 @@ Next Steps
 
 My next step is to start my intensive project. I will need to figure out where to mark my first and second milestones, and start familiarizing myself with tools around the workshop.
 
+# Schematics 
+
+<iframe frameborder= "no" border= "0" marginwidth= "0" marginheight= "0" width=500 height=400 src= "https://edrawcloudpublicus.s3.amazonaws.com/viewer/self/3695499/share/2023-7-20/1689877156/main.svg"></iframe>
+
 # Code
 
 ```python
