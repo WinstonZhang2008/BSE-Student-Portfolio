@@ -18,7 +18,7 @@ My project is a ball tracking robot that uses Raspberry Pi to run. It has object
 
 In my first 2 milestones, I got the robot to successfully identify the ball and somewhat follow it around. I also got the ultrasonic sensors working. However, the code had lots of bugs and it sometimes turned randomly. Since then, I have fixed the code and now the robot can accurately follow the ball around without turning randomly or stopping. 
 
-![First Image](redLED.jpg)![Second Image](greenLED.jpg)
+![First Image](redLED.jpg)![Second Image](greenLED.jp
 
 Since my second milestone, I have added 2 LEDs that signify if the ball has been reached or not. The red LED shines if the ball is far away, and the green LED shines if the ball is really close. When the green LED shines, the robot does not move, as it would crash into the ball if it does. 
 The robot tracks the ball by finding the center of the ball. It does this by drawing a rectangle around the ball, and then finding the center of the rectangle. If the center of the rectangle/ball is to the left of the camera, then the robot turns left. If it is to the right of the camrea, then it turns right. If it is in the middle, then it moves forward. Once it gets to a certain distance away from the ball(really close), then it stops and the green LED shines. If the ball is not within the camera range, then the robot turns in a circle until it finds the ball. A challenge I faced was that I couldn't get the if statement conditionals right. The robot would turn left even if the ball was right in front of it, and turn left when the ball is to the right. I had to adjust my if statements to check different values of the center of the ball to make it track accurately.
