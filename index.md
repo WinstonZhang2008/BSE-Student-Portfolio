@@ -142,7 +142,7 @@ def sonar(GPIO_TRIGGER,GPIO_ECHO):
       stop=0
       # Set pins as output and input
       #GPIO.setup(GPIO_TRIGGER,GPIO.OUT)  # Trigger
-      #qGPIO.setup(GPIO_ECHO,GPIO.IN)      # Echo
+      #GPIO.setup(GPIO_ECHO,GPIO.IN)      # Echo
      
       # Set trigger to False (Low)
       GPIO.output(GPIO_TRIGGER, False)
