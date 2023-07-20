@@ -84,6 +84,8 @@ My next step is to start my intensive project. I will need to figure out where t
 
 # Schematics 
 
+![First Image](CircuitDiagram.png)
+
 # Code
 
 ```python
