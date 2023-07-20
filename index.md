@@ -88,62 +88,76 @@ My next step is to start my intensive project. I will need to figure out where t
 
 # Code
 
-```python
-
-
+<table>
+<tr>
+<th>Setup</th>
+<th>Sonar</th>
+<th>Movement</th>
+<th>Detection</th>
+<th>BallTracking</th>
+</tr>
+<tr>
+<td>
+<pre style="background:f7f7f7;border:none";height:40pc>
 import RPi.GPIO as GPIO
 import time
 import cv2
 import numpy as np
+  
+  GPIO.setmode(GPIO.BCM)
+  GPIO.setwarnings(False)
+  GPIO_TRIGGER1 = 16      #Left ultrasonic sensor
+  GPIO_ECHO1 = 20
+  
+  GPIO_TRIGGER2 = 25      #Front ultrasonic sensor
+  GPIO_ECHO2 = 8
+  
+  GPIO_TRIGGER3 = 23      #Right ultrasonic sensor
+  GPIO_ECHO3 = 24
+  
+  ledGREEN = 6 #green lED
+  ledRED = 19 # red LED
+  
+  MOTOR1B=2  #Left Motor
+  MOTOR1E=3
+  
+  MOTOR2B=14  #Right Motor
+  MOTOR2E=15
+  
+  #setting up the red and green LEDs
+  GPIO.setup(ledRED, GPIO.OUT)
+  GPIO.setup(ledGREEN,GPIO.OUT)
+  
+  #red LED shines by default
+  GPIO.output(ledRED,GPIO.HIGH)
+  GPIO.output(ledGREEN,GPIO.LOW)
+  
+  #Set pins as output and input
+  GPIO.setup(GPIO_TRIGGER1,GPIO.OUT)  # Trigger
+  GPIO.setup(GPIO_ECHO1,GPIO.IN)      # Echo
+  GPIO.setup(GPIO_TRIGGER2,GPIO.OUT)  # Trigger
+  GPIO.setup(GPIO_ECHO2,GPIO.IN)
+  GPIO.setup(GPIO_TRIGGER3,GPIO.OUT)  # Trigger
+  GPIO.setup(GPIO_ECHO3,GPIO.IN)
+</pre>
+</td>
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
-GPIO_TRIGGER1 = 16      #Left ultrasonic sensor
-GPIO_ECHO1 = 20
+<td>
+<pre style="background:f7f7f7;border:none">
 
-GPIO_TRIGGER2 = 25      #Front ultrasonic sensor
-GPIO_ECHO2 = 8
-
-GPIO_TRIGGER3 = 23      #Right ultrasonic sensor
-GPIO_ECHO3 = 24
-
-ledGREEN = 6 #green lED
-ledRED = 19 # red LED
-
-MOTOR1B=2  #Left Motor
-MOTOR1E=3
-
-MOTOR2B=14  #Right Motor
-MOTOR2E=15
-
-#setting up the red and green LEDs
-GPIO.setup(ledRED, GPIO.OUT)
-GPIO.setup(ledGREEN,GPIO.OUT)
-
-#red LED shines by default
-GPIO.output(ledRED,GPIO.HIGH)
-GPIO.output(ledGREEN,GPIO.LOW)
-
-# Set pins as output and input
-GPIO.setup(GPIO_TRIGGER1,GPIO.OUT)  # Trigger
-GPIO.setup(GPIO_ECHO1,GPIO.IN)      # Echo
-GPIO.setup(GPIO_TRIGGER2,GPIO.OUT)  # Trigger
-GPIO.setup(GPIO_ECHO2,GPIO.IN)
-GPIO.setup(GPIO_TRIGGER3,GPIO.OUT)  # Trigger
-GPIO.setup(GPIO_ECHO3,GPIO.IN)
-
-# Set trigger to False (Low)
+#Set trigger to False (Low)
 GPIO.output(GPIO_TRIGGER1, False)
 GPIO.output(GPIO_TRIGGER2, False)
 GPIO.output(GPIO_TRIGGER3, False)
 
 def sonar(GPIO_TRIGGER,GPIO_ECHO):
-    #Calculates distance
+
+      #Calculates distance
       start=0
       stop=0
       # Set pins as output and input
       #GPIO.setup(GPIO_TRIGGER,GPIO.OUT)  # Trigger
-      #qGPIO.setup(GPIO_ECHO,GPIO.IN)      # Echo
+      #GPIO.setup(GPIO_ECHO,GPIO.IN)      # Echo
      
       # Set trigger to False (Low)
       GPIO.output(GPIO_TRIGGER, False)
@@ -174,7 +188,12 @@ def sonar(GPIO_TRIGGER,GPIO_ECHO):
      
       # Reset GPIO settings
       return distance
+</pre>
+</td>
 
+<td>
+<pre style="background:f7f7f7;border:none">
+  
 GPIO.setup(MOTOR1B, GPIO.OUT)
 GPIO.setup(MOTOR1E, GPIO.OUT)
 
@@ -183,36 +202,47 @@ GPIO.setup(MOTOR2E, GPIO.OUT)
 
 #Defining functions for the motors to move
 def forward():
+
       GPIO.output(MOTOR1B, GPIO.HIGH)
       GPIO.output(MOTOR1E, GPIO.LOW)
       GPIO.output(MOTOR2B, GPIO.HIGH)
       GPIO.output(MOTOR2E, GPIO.LOW)
      
 def reverse():
+
       GPIO.output(MOTOR1B, GPIO.LOW)
       GPIO.output(MOTOR1E, GPIO.HIGH)
       GPIO.output(MOTOR2B, GPIO.LOW)
       GPIO.output(MOTOR2E, GPIO.HIGH)
      
 def rightturn():
+
       GPIO.output(MOTOR1B,GPIO.LOW)
       GPIO.output(MOTOR1E,GPIO.HIGH)
       GPIO.output(MOTOR2B,GPIO.HIGH)
       GPIO.output(MOTOR2E,GPIO.LOW)
      
 def leftturn():
+
       GPIO.output(MOTOR1B,GPIO.HIGH)
       GPIO.output(MOTOR1E,GPIO.LOW)
       GPIO.output(MOTOR2B,GPIO.LOW)
       GPIO.output(MOTOR2E,GPIO.HIGH)
 
 def stop():
+
       GPIO.output(MOTOR1E,GPIO.LOW)
       GPIO.output(MOTOR1B,GPIO.LOW)
       GPIO.output(MOTOR2E,GPIO.LOW)
       GPIO.output(MOTOR2B,GPIO.LOW)
-     
+
+</pre>
+</td>
+
+<td>
+<pre style="background:f7f7f7;border:none">
 def segment_colour(frame):    #returns only the red colors in the frame
+  
     hsv_roi =  cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     mask_1 = cv2.inRange(hsv_roi, np.array([160, 160,10]), np.array([190,255,255]))
     ycr_roi=cv2.cvtColor(frame,cv2.COLOR_BGR2YCrCb)
@@ -226,6 +256,7 @@ def segment_colour(frame):    #returns only the red colors in the frame
     return mask
 
 def find_blob(blob): #Finds the center of the circle to track it better
+
     largest_contour=0
     cont_index=0
     contours, hierarchy = cv2.findContours(blob, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
@@ -245,12 +276,16 @@ def find_blob(blob): #Finds the center of the circle to track it better
     return r,largest_contour
 
 def target_hist(frame):
+
     hsv_img=cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
    
     hist=cv2.calcHist([hsv_img],[0],None,[50],[0,255])
     return hist
+</pre>
+</td>
 
-#CAMERA CAPTURE
+<td>
+<pre style="background:f7f7f7;border:none">
 #initialize the camera and grab a reference to the raw camera capture
 video = cv2.VideoCapture(0)
 video.set(3,320)
@@ -259,6 +294,7 @@ ball_captured = False
 
 flag = 0
 while True:
+
     ret, frame = video.read()
 
    
@@ -299,22 +335,20 @@ while True:
        
     if found == 0:
         #Runs when it doesn't see the ball
-        GPIO.output(ledGREEN,GPIO.LOW)
-        GPIO.output(ledRED,GPIO.HIGH)
         #Checks if there is a wall or any obstacle. if wall is less than 12 cm away, it reverses to avoid crashing
-        if distanceC < 12:
+        if distanceC < 9.5:
             reverse()
-            time.sleep(0.03)
+            time.sleep(0.1)
             stop()
            
         else:
             #Turning in circles to find the ball
             leftturn()
-            time.sleep(0.03)
+            time.sleep(0.05)
             stop()
     if(found==1):
-        if  distanceC<=8:
-            #If the ball is really close(less than 8 cm), then we can set the variable to true
+        if  distanceC<=11 or distanceR<=11 or distanceL <=11:
+            #If the ball is really close(less than 11 cm), then we can set the variable to true
             ball_captured = True
         #Happens when the ball is found
         if ball_captured:
@@ -326,6 +360,8 @@ while True:
             #Sets ball captured back to false so it doesn't stay stationary forever
             ball_captured = False
         else:
+            GPIO.output(ledRED,GPIO.HIGH)
+            GPIO.output(ledGREEN,GPIO.LOW)
             #The robot has not successfully reached the ball yet, so it runs this
             ball_captured = False
             if area > 200:
@@ -347,9 +383,6 @@ while True:
                     print("forward")
                     forward()
                
-                #Red LED shines by default
-                GPIO.output(ledRED,GPIO.HIGH)
-                GPIO.output(ledGREEN,GPIO.LOW)
     if frame is not None:
         cv2.imshow("frame",frame)
     if cv2.waitKey(1) == ord('q'):
@@ -357,7 +390,14 @@ while True:
 video.release()
 cv2.destroyAllWindows()        
 
-```
+</pre>
+</td>
+
+</tr>
+</table>
+
+
+
 
 # Bill of Materials
 
